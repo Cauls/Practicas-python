@@ -1,6 +1,6 @@
 import random
 valor = random.randrange(0,100)
-intentos = 6
+intentos = 4
 intento = 0
 while valor!=intento & intentos > 0:
     intento = int(input("Inserta un numero"))

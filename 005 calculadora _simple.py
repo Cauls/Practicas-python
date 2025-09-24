@@ -1,0 +1,7 @@
+num1 = int(input("Primer numero"))
+num2 = int(input("Segundo numero"))
+print(str(num1) + " + " + str(num2) + " = " + str(num1+num2))
+print(str(num1) + " - " + str(num2) + " = " + str(num1-num2))
+print(str(num1) + " * " + str(num2) + " = " + str(num1*num2))
+print(str(num1) + " / " + str(num2) + " = " + str(num1/num2))
+print(str(num1) + " // " + str(num2) + " = " + str(num1//num2))

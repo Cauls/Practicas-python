@@ -22,9 +22,19 @@ def comprobar(marco):
         ganador = "empate"
         print("Empate")
     for fila in marco:
-        if fila[0] == fila[1] == fila[2]:
+        if fila[0] != " " and fila[0] == fila[1] and  fila[0] == fila[2]:
             ganador = fila[0]
-        elif 
+            print(f"Ha ganado el jugador {ganador}")
+            break    
+    for indice in range(0, 3):
+        if marco[0][indice] !=" " and marco[0][indice] == marco[1][indice] and marco[0][indice] == marco[2][indice]:
+            ganador = marco[0][indice]
+            print(f"Ha ganado el jugador {ganador}")
+            break
+    if marco[1][1] != " " and (marco[1][1] == marco[0][0] == marco[2][2] or marco[1][1] == marco[0][2] == marco[2][0]):
+        ganador = marco[1][1]
+        print(f"Ha ganado el jugador {ganador}")
+
 
 imprimir(marco)
 while ganador == "":

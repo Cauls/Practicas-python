@@ -73,9 +73,12 @@ def comprobar():
         ganador = "empate"
         print("Empate")
 
+#Switch dedicado a decidir que modo de juego se jugará, si jugador contra jugador, jugador contra maquina o maquina contra maquina
 match eleccion:
     case 1:
+        #El modo jugador contra jugador, primero imprime el tablero
         imprimir()
+        #Mientras no haya ganador, tira con el jugador que haya seleccionado, imprime el tablero y cambia el jugador al que le toca ahora
         while ganador == "":
             tirar(turno, marco)
             imprimir()
@@ -83,10 +86,13 @@ match eleccion:
                 turno = "O"
             elif turno == "O":
                 turno = "X"
+            #Por ultimo, comprueba si se ha ganado o empatado ya
             comprobar()
     case 2:
+        #El modo jugador contra maquina, es muy parecido al anterior modo
         imprimir()
         while ganador == "":
+            #Aqui la mayor diferencia, es que comprueba que jugador es antes de decidir si va a tirar la maquina o el jugador, forzando siempre al jugador a ser la X
             if turno == "X":
                 tirar(turno, marco)
                 imprimir()
@@ -99,6 +105,7 @@ match eleccion:
     case 3:
         imprimir()
         while ganador == "":
+            #Exactamente igual que con el jugador contra jugador pero haciendo que tire la maquina
             tiradaBot(turno, marco)
             imprimir()
             if turno == "X":

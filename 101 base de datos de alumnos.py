@@ -1,5 +1,4 @@
 alumnos = {}
-
 def agregar_alumno(nombre, edad, curso):
     global alumnos
     alumnos.update({len(alumnos)+1:{"nombre":nombre, "edad":edad, "curso":curso}})

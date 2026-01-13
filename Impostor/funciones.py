@@ -1,7 +1,11 @@
 import random
 
+palabraSel= ["", ""]
+
 #Funcion para asignar jugadores, pide la cantidad de jugadores, e itera en un for x veces siendo x la cantidad de jugadores, cada iteración pide un jugador que será añadido sin rol alguno al diccionario de jugadores y con una string vacia al de frases
 def asignarJugadores(jugadores, frases):
+    jugadores.clear()
+    frases.clear()
     cantidad = 0
     while cantidad < 3:
         cantidad = int(input("Inserta el número de jugadores que van a jugar: "))
@@ -12,33 +16,66 @@ def asignarJugadores(jugadores, frases):
         jugadores[jugador] = "Nan"
         frases[jugador] = ""
 
+def seleccionarDificultad(palabras, dificultad):
+    selPalabra(palabras, dificultad)
+    numRondas = 0
+    if dificultad == 1:
+        numRondas = 6
+    elif dificultad == 2:
+        numRondas = 3
+    else:
+        numRondas = 2
+    return numRondas
+
+
+
 #Según la cantidad de jugadores, se asigna un número aleatorio, el jugador en ese indice del diccionario será asignador como impostor, el resto como civiles
-def impostor(jugadores):
-    impostor = random.randint(0, len(jugadores)-1)
+def impostor(jugadores, dificultad):
+    control = False
+    impostor = 0
+    impostores = [0, 0]
+    if dificultad == 3:
+        while control == False:
+            impostores[0] =  random.randint(0, len(jugadores)-1)
+            impostores[1] =  random.randint(0, len(jugadores)-1)
+            if impostores[0] != impostores[1]:
+                control = True
+    else:
+        impostor = random.randint(0, len(jugadores)-1)
     index = 0
-    for i in jugadores:
-        if index == impostor:
-            jugadores[i] = "Impostor"
-        else:
-            jugadores[i] = "Civil"
-        index+=1
+    if dificultad == 3:
+        for i in jugadores:
+            if index in impostores:
+                jugadores[i] = "Impostor"
+            else:
+                jugadores[i] = "Civil"
+            index+=1
+    else: 
+        for i in jugadores:
+            if index == impostor:
+                jugadores[i] = "Impostor"
+            else:
+                jugadores[i] = "Civil"
+            index+=1
 
 #Similar a la anterior funcion, en funcion de la cantidad de palabras en el diccionario, escogerá una al azar por indice y devolverá un array con la palabra y la pista
-def selPalabra(palabras):
+def selPalabra(palabras ,dificultad):
+    global palabraSel
     palabra = ["", ""]
     elegida = random.randint(0, len(palabras)-1)
     index = 0
     for i in palabras:
         if index == elegida:
-            palabra = [i, palabras[i]]
+            palabra = [i, palabras[i][dificultad - 1]]
         index+=1
-    return palabra
+    palabraSel = palabra
 
 #El bucle de inicio, recorre todo el diccionario de jugadores e imprime la palabra o la pista a cada jugador dependiendo de que haya salido como impostor o como civil. También tengo un arte de ASCII ahi como introducción pero se rompe un poco la verdad
-def inicio(jugadores, palabras):
+def inicio(jugadores, dificultad):
+    global palabraSel
     print("=======================================================\n  _____ __  __ _____   ____   _____ _______ ____  _____ \n |_   _|  \/  |  __ \ / __ \ / ____|__   __/ __ \|  __ \ \n   | | | \  / | |__) | |  | | (___    | | | |  | | |__) | \n   | | | |\/| |  ___/| |  | |\___ \   | | | |  | |  _  / \n  _| |_| |  | | |    | |__| |____) |  | | | |__| | | \ \  \n |_____|_|  |_|_|     \____/|_____/   |_|  \____/|_|  \_\ \n=======================================================")
-    impostor(jugadores)
-    palabra = selPalabra(palabras)
+    impostor(jugadores, dificultad)
+    palabra = palabraSel
     for i in jugadores:
         if jugadores[i] == "Civil":
             print(f"Jugador {i} es Civil\nSu palabra es {palabra[0]}\n\nPulse el intro para continuar")

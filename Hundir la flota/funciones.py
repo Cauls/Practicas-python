@@ -1,11 +1,11 @@
 import random as r
-ataque = [0, 0]
+ganador = 'none'
 
 def printTablero(tablero):
     print(' ' + '-'*((len(tablero)*3)-1))
-    for i in range(len(tablero)-1):
+    for i in range(len(tablero)):
         print(f'{i}|', end='')
-        for j in range(len(tablero)-1):
+        for j in range(len(tablero)):
             print(f' {tablero[i][j]} ', end='')
         print('|')
     print(' ' + '-'*((len(tablero)*3)-1))
@@ -14,8 +14,6 @@ def genBarcos(tablero):
     barcos = [3, 3, 4, 2]
     coord = [0,0]
     angulo = ''
-    valida = False
-    valida1 = False
     for i in barcos:
         while colocarValido(tablero, coord[0], coord[1], i, angulo) == False:
             coord = randomCoord(tablero)
@@ -79,6 +77,7 @@ def verificarAtaque(fila, col, tablero):
 def ataquej1(tablero, tableroReal):
     fila = 15
     col = 15
+    print('Turno del Jugador 1')
     while verificarAtaque(fila, col, tablero) == False:
         fila = int(input('Jugador 1, inserte la posición en eje y a la que atacar: '))
         col = int(input('Ahora en eje x: '))
@@ -91,7 +90,8 @@ def ataquej1(tablero, tableroReal):
 def ataquej2(tablero, tableroReal):
     fila = 15
     col = 15
-    while verificarAtaque(fila, col, tablero) != False:
+    print('Turno del Jugador 2')
+    while verificarAtaque(fila, col, tablero) == False:
         fila = int(input('Jugador 2, inserte la posición en eje y a la que atacar: '))
         col = int(input('Ahora en eje x: '))
     match tableroReal[fila][col]:
@@ -99,11 +99,12 @@ def ataquej2(tablero, tableroReal):
             tablero[fila][col] = '💧'
         case 'X':
             tablero[fila][col] = '💥'
+            tableroReal[fila][col] = '.'
 
 def ataquebot(tablero, tableroReal):
     fila = 15
     col = 15
-    while verificarAtaque(fila, col, tablero) != False:
+    while verificarAtaque(fila, col, tablero) == False:
         fila = r.randint(0, len(tablero)-1)
         col = r.randint(0, len(tablero)-1)
     match tableroReal[fila][col]:
@@ -111,3 +112,12 @@ def ataquebot(tablero, tableroReal):
             tablero[fila][col] = '💧'
         case 'X':
             tablero[fila][col] = '💥'
+    
+
+def checkVictoria(tableroj1, tableroj2):
+    if 'X' not in tableroj1:
+        return 'J2'
+    elif 'X' not in tableroj2:
+        return 'J1'
+    else:
+        return 'none'

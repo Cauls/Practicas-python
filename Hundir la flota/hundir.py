@@ -110,7 +110,7 @@ def partida():
     genBarcos(mapaj1, mapaj2)
     partidaModo = 0
     while partidaModo not in [1, 2, 3]:
-        partidaModo = int(input('Elige la modalidad de la partida\n1)Jugador contra Jugador\n2)Jugador contra Maquina\n3)Maquina contra maquina'))
+        partidaModo = int(input('Elige la modalidad de la partida\n1)Jugador contra Jugador\n2)Jugador contra Maquina\n3)Maquina contra maquina\n'))
     match partidaModo:
         case 1:
             while ganador == 'none':

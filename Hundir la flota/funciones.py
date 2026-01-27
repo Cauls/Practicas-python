@@ -17,8 +17,8 @@ def printTablero(tablero):
 #Genera los barcos en los tableros ya creados pero vacíos, para ello usa unas cuantas funciones auxiliares que explicaré en breve, pero básicamente genera una posición aleatoria para cada barco y comprueba que sea válida, si lo es, generará el barco con su respectivo ID
 def genBarcos(tableroj1, tableroj2):
     global barcos
-    barcos = [3, 3, 4, 2]
-    coord = [0,0]
+    barcos = [3, 4]
+    coord = [99,99]
     indice = 1
     angulo = ''
     for i in barcos:
@@ -34,6 +34,7 @@ def genBarcos(tableroj1, tableroj2):
                     tableroj1[j][coord[1]] = f'{indice}'
         barcosj1.update({f'{indice}': i})
         indice += 1
+    coord = [99,99]
     for i in barcos:
         while colocarValido(tableroj2, coord[0], coord[1], i, angulo) == False:
             coord = randomCoord(tableroj2)
@@ -74,12 +75,8 @@ def colocarValido(tablero, fila, col, barco, angulo):
 #Devuelve una posición aleatoria basándose en el tamaño del tablero dado
 def randomCoord(tablero):
     coord = [0, 0]
-    valido = False
-    while valido == False:
-        coord[0] = r.randint(0, len(tablero)-1)
-        coord[1] = r.randint(0, len(tablero)-1)
-        if coord[0] != coord[1]:
-            valido = True
+    coord[0] = r.randint(0, len(tablero)-1)
+    coord[1] = r.randint(0, len(tablero)-1)
     return coord
 
 #Genera un angulo aleatorio, este puede ser horizontal o verical
